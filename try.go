@@ -58,16 +58,16 @@ func (t *Try[T]) OnErr(f func(e error)) {
 
 
 func (t *Try[T]) OnSuccess(f func(x T) ) {
-	if err == nil {
+	if t.err == nil {
 		f(t.val)
 	}
 }
 
 
 func (t *Try[T]) IsErr() bool {
-	return err != nil
+	return t.err != nil
 } 
 
-func (T *Try[T]) IsOk() bool {
-	return e == nil 
+func (t *Try[T]) IsOk() bool {
+	return t.err == nil 
 }
