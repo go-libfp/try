@@ -42,6 +42,23 @@ func WrapErr[T any](t T, err error) Try[T] {
 	return Try[T]{t, err}
 }
 
+func WrapF[T any](f func () T, error) Try[T] {
+	return WrapErr( f() )
+}
+
+func RetryN[T any](f func() Try[T], budget int) Try[T] {
+	
+	var out Try[T]
+
+	for i := 0; i < budget; i++ {
+		t := WrapF(f)
+		if t.IsOk() { return t}
+		out = t 
+	}
+
+	return out 
+}
+
 
 func (t *Try[T]) Get() (T, error) {
 	return t.val, t.err 
