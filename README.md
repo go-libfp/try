@@ -1,6 +1,5 @@
 # try 
 
-
 ## An idiomatic error monad for go, use this if you hate if err != nil 
 
 ## Usage 
@@ -14,14 +13,7 @@
 	) 
 
 
-
-
-
-
-
-
 	// constructors 
-
 
 	f_off  := errors.New("fuck off m8")
 
@@ -61,22 +53,24 @@
 		fmt.Printf("Success: %s\n", s) 
 	}
 
+
 	world := func(s string) string {return fmt.Sprintf("%s world!", s)}
-
-
-
+	alone := func(s string) string {return fmt.Sprintf("%s I'm all alone", s)}
 
 
 
 	// combinators 
 
 	ok2 := try.Map(ok, world)
+	err2 := try.Map(ok2, bindErr)
 
-
+	ok3 := try.Map(ok2, alone)
 
 	ok1.OnSuccess(printer)
 	err1.OnErr(errPrint) 
+
 	ok2.OnSuccess(printer) 
+
 
 
 
