@@ -1,6 +1,7 @@
 # try 
 
-## An idiomatic error monad for go, use this if you hate if err != nil 
+An idiomatic error monad for go, use this if you hate if err != nil 
+
 
 ## Usage 
 
