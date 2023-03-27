@@ -70,6 +70,13 @@ func (t *Try[T]) OnErr(f func(e error)) {
 }
 
 
+func (t *Try[T]) GetErr() error {
+	return t.err
+} 
+
+func (t *Try[T]) GetValue() T {
+	return t.val 
+}
 
 
 func (t *Try[T]) OnSuccess(f func(x T) ) {
@@ -77,6 +84,8 @@ func (t *Try[T]) OnSuccess(f func(x T) ) {
 		f(t.val)
 	}
 }
+
+
 
 
 func (t *Try[T]) IsErr() bool {
