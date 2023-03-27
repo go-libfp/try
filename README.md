@@ -1,3 +1,4 @@
+[![Docs](https://img.shields.io/badge/godoc-docs-blue.svg?label=&logo=go)](https://pkg.go.dev/github.com/go-libfp/try)
 # try 
 
 An idiomatic error monad for go, use this if you hate if err != nil 
@@ -63,7 +64,7 @@ An idiomatic error monad for go, use this if you hate if err != nil
 	// combinators 
 
 	ok2 := try.Map(ok, world)
-	err2 := try.Map(ok2, bindErr)
+	err2 := try.Bind(ok2, bindErr)
 
 	ok3 := try.Map(ok2, alone)
 
