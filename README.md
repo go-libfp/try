@@ -1,13 +1,16 @@
 [![Docs](https://img.shields.io/badge/godoc-docs-blue.svg?label=&logo=go)](https://pkg.go.dev/github.com/go-libfp/try)
 # try 
 
-An idiomatic error monad for go, use this if you hate if err != nil 
+
+An error monad for go, that's lightweight and  doesn't go against the grain.
+
+Use this if you hate if err != nil and think the error chaining libraries are lame and heavy duty. 
 
 
 ## Usage 
 
 
-``` 
+```go 
 	import (
 		"github.com/go-libfp/try"
 		"errors" 
