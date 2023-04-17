@@ -42,6 +42,19 @@ func WrapErr[T any](t T, err error) Try[T] {
 	return Try[T]{t, err}
 }
 
+// Like bind but takes function that returns err tuples instead 
+func BindET[T, U any](t Try[T], f func(x T) (U, error) ) Try[U] {
+        
+	if t.err == nil {
+		out := WrapErr( f(t.val) ) 
+		return out 
+	}
+
+
+        return Err[U](t.err) 
+
+}
+
 
 
 func RetryN[T any](f func() Try[T], budget int) Try[T] {
