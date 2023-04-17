@@ -3,84 +3,47 @@
 
 A lightweight go-friendly error monad. 
 
-Use this if you hate repeating basic error handling patterns over and over again. 
-
+Use this if you hate rewriting / copy pasting basic error handling patterns. 
 
 ## Usage 
-
-
 ```go 
-	import (
-		"github.com/go-libfp/try"
-		"errors" 
-		"fmt" 
-	) 
+import (
+	"github.com/go-libfp/try"
+	"encoding/json"
+	"fmt"
+	"testing"
+)
 
 
-	// constructors 
+type Foo struct { Bar string}
 
-	f_off  := errors.New("fuck off m8")
 
-	// This Function is hella useful in practice since, everything returns t, error in go
-	okWrapped := try.Wrap("hello", nil) 
-	errWrapped := try.Wrap("", f_off) 
-
-	ok1 := try.Ok("hello") 
-	err1 := try.Err[string](f_off) 
-
+func jsonDecode[T any](data []byte) (T, error)  {
+	var out T 
+	err := json.Unmarshal(data, &out)
+	return out, err 
+} 
 
 
 
-	// closures
-	
-	errFun := func(s String) (string, error) { 
-		e := errors.New("fuck off m8") 
-		return s, e 
-	}
-
-
-	bindErr := func( s string) Try[string] {
-		return try.Wrap( errFun(s) )
-	} 
-
-	
-	
+t := try.WrapErr( json.Marshal(Foo{"hello"}) ) 
 	
 
+// bind ET will run a function that re
+t1 := try.BindET(t, jsonDecode[Foo])
 
-	errPrint := func(e error) {
-		fmt.Printf("Error: %s\n", e.Error()) 
-	} 
-
-
-	printer := func(s string) {
-		fmt.Printf("Success: %s\n", s) 
-	}
+t2 := try.Map(t1, func(x Foo) string {
+	return x.Bar
+}  ) 
 
 
-	world := func(s string) string {return fmt.Sprintf("%s world!", s)}
-	alone := func(s string) string {return fmt.Sprintf("%s I'm all alone", s)}
-
-
-
-	// combinators 
-
-	ok2 := try.Map(ok, world)
-	err2 := try.Bind(ok2, bindErr)
-
-	ok3 := try.Map(ok2, alone)
-
-	ok1.OnSuccess(printer)
-	err1.OnErr(errPrint) 
-
-	ok2.OnSuccess(printer) 
+t2.OnSuccess(func(x string) {
+	fmt.Println(x) 
+} ) 
 
 
 
 
-	// Getters 
-	x, e := ok1.Get() 
-	e = ok.GetErr() 
-	x = ok.GetVal() 
+} 
 
 ```
