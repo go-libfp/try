@@ -1,10 +1,9 @@
 [![Docs](https://img.shields.io/badge/godoc-docs-blue.svg?label=&logo=go)](https://pkg.go.dev/github.com/go-libfp/try)
 # try 
 
+A lightweight go-friendly error monad. 
 
-An error monad for go, that's lightweight and  doesn't go against the grain.
-
-Use this if you hate if err != nil and think the error chaining libraries are lame and heavy duty. 
+Use this if you hate repeating basic error handling patterns over and over again. 
 
 
 ## Usage 
