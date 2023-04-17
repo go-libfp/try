@@ -29,7 +29,7 @@ func jsonDecode[T any](data []byte) (T, error)  {
 t := try.WrapErr( json.Marshal(Foo{"hello"}) ) 
 	
 
-// bind ET will run a function that re
+// bind ET will run a function that returns err tuple  
 t1 := try.BindET(t, jsonDecode[Foo])
 
 t2 := try.Map(t1, func(x Foo) string {
